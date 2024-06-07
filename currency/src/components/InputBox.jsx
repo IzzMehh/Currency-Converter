@@ -19,7 +19,11 @@ function InputBox({
  <>
     <div className="bg-white flex flex-col ">
         <label className="text-base md:text-xl font-semibold " htmlFor={id}>Amount</label>
-        <input className="p-3 border-2 rounded-md outline-none" id={id} type="number" placeholder="Amount" value={amount} onChange={(e)=>setAmount(Number(e.target.value))}/>
+        <input className="p-3 border-2 rounded-md outline-none" id={id} type="number" placeholder="Amount" value={amount} onChange={(e)=>{
+            if(e.target.value>=0){
+                setAmount(Number(e.target.value))
+            }
+        }}/>
     </div>
     <div className="bg-white flex flex-col md:mx-3">
         <label className="text-base md:text-xl font-semibold"  >From</label>
