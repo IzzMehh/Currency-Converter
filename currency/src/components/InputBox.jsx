@@ -1,4 +1,4 @@
-import React, { useId } from "react";
+import React, { useId, useRef } from "react";
 
 
 function InputBox({
@@ -13,8 +13,11 @@ function InputBox({
 }){
 
     const id = useId()
+
+    const selectBoxFrom = useRef(null)
+    const selectBoxTo = useRef(null)
     
-    console.log(options)
+
  return(
  <>
     <div className="bg-white flex flex-col ">
@@ -27,7 +30,7 @@ function InputBox({
     </div>
     <div className="bg-white flex flex-col md:mx-3">
         <label className="text-base md:text-xl font-semibold"  >From</label>
-        <select className="p-3 border-2 rounded-md h-[52px] outline-none cursor-pointer" onChange={(e)=>setFrom(e.target.value)}>
+        <select ref={selectBoxFrom} className="p-3 border-2 rounded-md h-[52px] outline-none cursor-pointer" onChange={(e)=>setFrom(e.target.value)}>
             <option className="text-xl" value={from}>{from.toUpperCase()}</option>
             {options.map((data)=>{
             return(
@@ -37,11 +40,17 @@ function InputBox({
         </select>
     </div>
     <div className="text-center text-blue-600 text-3xl flex items-center  justify-center">
-    <div className="h-[52px] w-16 hover:bg-[#F1EEEE] cursor-pointer border rounded-full flex items-center justify-center" onClick={swap}> <p> <ion-icon name="swap-horizontal-outline"></ion-icon></p></div>
+    <div className="h-[52px] w-16 hover:bg-[#F1EEEE] cursor-pointer border rounded-full flex items-center justify-center" onClick={()=>{
+        swap()
+        let temp = selectBoxFrom.current.value
+        selectBoxFrom.current.value = selectBoxTo.current.value
+        selectBoxTo.current.value = temp
+        
+    }}> <p> <ion-icon name="swap-horizontal-outline"></ion-icon></p></div>
     </div>
     <div className="bg-white flex flex-col md:mx-3">
         <label className="text-base md:text-xl font-semibold"  >To</label>
-        <select className="p-3 border-2 rounded-md h-[52px] outline-none cursor-pointer" onChange={(e)=>setTo(e.target.value)}>
+        <select ref={selectBoxTo} className="p-3 border-2 rounded-md h-[52px] outline-none cursor-pointer" onChange={(e)=>setTo(e.target.value)}>
             <option  className="text-xl" value={to}>{to.toUpperCase()}</option>
             {options.map((data)=>{
             return(
