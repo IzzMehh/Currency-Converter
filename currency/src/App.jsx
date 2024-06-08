@@ -2,7 +2,6 @@ import React, { useCallback, useRef, useState } from "react";
 import InputBox from "./components/InputBox";
 import currencyConverter from "./hooks/useCurrencyInfo";
 // import ConvertBtn from "./components/ConvertBtn";
-import { useMemo } from "react";
 
 function App(){
     const [amount,setAmount] = useState(0)
@@ -13,7 +12,6 @@ function App(){
 
     const data = currencyConverter(from)
 
-    console.log(data.inr)
 
     const converter = useCallback(()=>{
         return (typeof data == undefined) ? 0  :  (amount*data[to]).toFixed(3)
@@ -25,7 +23,6 @@ function App(){
     }
 
     const options = Object.keys(data)
-    // console.log(options)
     
     
     return(
